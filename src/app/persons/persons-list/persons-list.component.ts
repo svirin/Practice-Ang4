@@ -23,7 +23,7 @@ export class PersonsListComponent implements OnInit, OnDestroy {
       (persons) => {
         this.persons = persons;
       });
-    this.persons = this.personsService.getPersons();
+    this.personsService.loadPersons();
   }
 
   ngOnDestroy() {

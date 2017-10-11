@@ -13,9 +13,10 @@ export class PersonsCardsComponent implements OnInit, OnDestroy {
   persons: Person[];
   personsServiceSubscription: Subscription;
 
-  constructor(
+    constructor
+    (
     private personsService: PersonsService
-  ) { }
+    ) { }
 
   ngOnInit() {
 
@@ -23,7 +24,7 @@ export class PersonsCardsComponent implements OnInit, OnDestroy {
       (persons) => {
         this.persons = persons;
       });
-    this.persons = this.personsService.getPersons();
+    this.personsService.loadPersons();
   }
 
   ngOnDestroy() {

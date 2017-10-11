@@ -20,17 +20,18 @@ export class PersonsSearchLabelsComponent implements OnInit {
   labelsServiceSubscription: Subscription;
   personsUpdatedServiceSubscription: Subscription;
 
-  constructor(
+  constructor
+    (
     private labelsService: LabelsService,
     private personsService: PersonsService
   ) { }
 
   ngOnInit() {
+
     this.labelsServiceSubscription = this.labelsService.labelsChanged.subscribe(
       (labels) => {
         this.labels = labels;
       });
-
 
     this.personsUpdatedServiceSubscription = this.personsService.personsUpdated
       .subscribe

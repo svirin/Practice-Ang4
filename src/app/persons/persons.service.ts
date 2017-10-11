@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Person } from '../shared/model/persons.model';
 import { Label } from '../shared/model/labels.model';
-import { Subject } from "rxjs/Subject";
+import { Subject } from 'rxjs/Subject';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Injectable()
 export class PersonsService {
@@ -10,17 +11,28 @@ export class PersonsService {
   listMode: string = 'list';
   selectedPersonId: string = '';
 
-  constructor(
+  constructor
+    (
     private router: Router,
-    private route: ActivatedRoute
-  ) {
+    private route: ActivatedRoute,
+    private dataStorageService: DataStorageService
+    ) {
 
-  this.route.params.subscribe(
+    this.route.params.subscribe(
       (params: Params) => {
         this.selectedPersonId = params['id'];
       });
-  }
 
+    dataStorageService.personLoaded.subscribe
+      ((person: Person) => {
+        this.personChanged.next(person);
+      });
+
+    dataStorageService.personsLoaded.subscribe
+      ((persons: Person[]) => {
+        this.personsChanged.next(persons);
+      });
+  }
 
   personsUpdated = new Subject<any>();
   personChanged = new Subject<Person>();
@@ -51,7 +63,7 @@ export class PersonsService {
   ];
 
   loadSinglePerson(id: string) {
-    this.personChanged.next(this.persons[0]);
+    this.dataStorageService.getSinglePerson(id);
   }
 
   deleteSinglePerson(id: string) {
@@ -64,11 +76,15 @@ export class PersonsService {
     return this.persons.slice();
   }
 
+  loadPersons() {
+    this.dataStorageService.getAllPersons();
+  }
+
   loadPersonsByLabel(labelId: string) {
-    this.personsChanged.next(this.persons.slice());
+    this.dataStorageService.getPersonsByLabel(labelId);
   }
 
   saveSinglePerson(person: Person) {
-    //this.dataStorageService.saveSingleLabel(label);
+    this.dataStorageService.saveSinglePerson(person);
   }
 }

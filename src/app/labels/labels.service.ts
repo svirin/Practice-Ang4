@@ -25,7 +25,6 @@ export class LabelsService {
     ((labels: Label[]) => {
       this.labelsChanged.next(labels);
     });
-
   }
 
   loadLabels() {
