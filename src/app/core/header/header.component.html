@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="navbar-brand">Project-A</div>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
+        <li routerLinkActive="active" appDropdown class="dropdown" >
+          <a curson="cursor:pointer" class="dropdown-toggle" role="button">
+            Search
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a style="cursor:pointer" (click)="onSearchByName()">Search By Name</a></li>
+            <li><a style="cursor:pointer" (click)="onSearchByLabel()">Search By Label</a></li>
+          </ul>
+        </li>
+        <li routerLinkActive="active"><a routerLink="/labels">Labels</a></li>
+      </ul>
+      <!--<ul class="nav navbar-nav navbar-right">
+        <li><a routerLink="/logout">Logout</a></li>
+      </ul>-->
+    </div>
+  </div>
+</nav>

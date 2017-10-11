@@ -1,0 +1,15 @@
+<div style="float: left; margin: 1px; cursor: pointer; width: 110px;">
+  <a class="list-group-item clearfix"
+     [routerLink]="[person.id]"
+     routerLinkActive="active">
+    <div class="center-block" >
+      <div class="list-group-item-heading">{{person.firstname}} {{person.lastname}}</div>
+    </div>
+    <div class="center-block">
+      <img [src]="person.imagePath"
+           alt="{{person.name}}"
+           class="img-responsive"
+           style="max-height:100px" />
+    </div>
+  </a>
+</div>

@@ -1,0 +1,13 @@
+Current Selected Person #{{personsService.selectedPersonId}}
+
+<button [ngClass]="getButtonStyle('list')"
+        (click)="changeListMode('list')"
+        style="width:60px;">
+  List
+</button>
+<button [ngClass]="getButtonStyle('cards')"
+        (click)="changeListMode('cards')"
+        style="width:60px;">
+  Cards
+</button>
+

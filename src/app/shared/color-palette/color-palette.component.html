@@ -1,0 +1,19 @@
+<button type="button" (click)="onPaletteClick()">Palette</button>
+<div [hidden]="!paletteOpened" style="position: absolute; z-index: 999">
+
+  <div style="background-color:#000000; float: left; width:640px">
+    <div *ngFor="let number of numbers; let i = index" 
+          [ngStyle]="{backgroundColor:rainbow(i)}"
+          class="paletteitem"
+          (click)="onSelectColor(rainbow(i))">&nbsp;
+    </div>
+  </div>
+
+
+
+  <!--<div style="background-color: #ff0000; width: 30px; height: 30px; cursor: pointer;" (click)="onSelectColor('#ff0000')">&nbsp;</div>
+  <div style="background-color: #ffee00; width: 30px; height: 30px; cursor: pointer;" (click)="onSelectColor('#ffee00')">&nbsp;</div>
+  <div style="background-color: #ff00ee; width: 30px; height: 30px; cursor: pointer;" (click)="onSelectColor('#ff00ee')">&nbsp;</div>
+  <div style="background-color: #00ee00; width: 30px; height: 30px; cursor: pointer;" (click)="onSelectColor('#00ee00')">&nbsp;</div>
+  <div style="background-color: #00eecc; width: 30px; height: 30px; cursor: pointer;" (click)="onSelectColor('#00eecc')">&nbsp;</div>-->
+</div>

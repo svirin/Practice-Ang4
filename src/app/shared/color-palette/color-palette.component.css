@@ -1,0 +1,7 @@
+div.paletteitem {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  margin: 1px;
+  float: left;
+}

@@ -1,0 +1,16 @@
+<a class="list-group-item clearfix"
+   [ngStyle]="{backgroundColor: label.color}"
+   style="margin-top: 5px; cursor:pointer"
+   [routerLink]="[label.id]"
+   routerLinkActive="active">
+  <div class="pull-left">
+    <div class="list-group-item-heading">{{label.name}}</div>
+    <div class="list-group-item-text">{{label.description}}</div>
+  </div>
+  <div class="pull-right">
+    <img [src]="label.imagePath"
+         alt="{{label.name}}"
+         class="img-responsive"
+         style="max-height:50px" />
+  </div>
+</a>

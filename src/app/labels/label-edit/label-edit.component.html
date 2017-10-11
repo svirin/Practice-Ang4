@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="labelsForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit"
+                  class="btn btn-success"
+                  [disabled]="!labelsForm.valid">
+            Save
+          </button>
+          <button type="button"
+                  class="btn btn-danger"
+                  (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text"
+                   id="name"
+                   formControlName="name"
+                   class="form-control">
+            <span *ngIf="!labelsForm.get('name').valid && labelsForm.get('name').touched" class="help-block">
+              <span *ngIf="labelsForm.get('name').errors['labelNameValidate']" class="help-block">Name must start from 'Label'</span>
+              <span *ngIf="labelsForm.get('name').errors['maxlength']" class="help-block">Name must must be less than 30 letters</span>
+              <span *ngIf="labelsForm.get('name').errors['required']" class="help-block">This name is required</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea type="text"
+                      id="description"
+                      class="form-control"
+                      formControlName="description"
+                      rows="3"></textarea>
+            <span *ngIf="!labelsForm.get('description').valid && labelsForm.get('description').touched" class="help-block">
+              <span *ngIf="labelsForm.get('description').errors['maxlength']" class="help-block">Name description must be less than 150 letters</span>
+              <span *ngIf="labelsForm.get('description').errors['required']" class="help-block">This description is required</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Color</label>
+            <input type="text"
+                   id="color"
+                   disabled
+                   formControlName="color"
+                   class="form-control"
+                   [ngStyle]="{backgroundColor:labelsForm.get('color').value}">
+            <app-color-palette (colorChanged)="onColorChanged($event)"></app-color-palette>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagePath">Image URL</label>
+            <input type="text"
+                   id="imagePath"
+                   formControlName="imagePath"
+                   class="form-control"
+                   #imagePath>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img [src]="imagePath.value"
+               class="img-responsive">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

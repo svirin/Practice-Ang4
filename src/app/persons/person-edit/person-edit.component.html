@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      
+      <!--<div id="person-data" ngModelGroup="personData" #personData="ngModelGroup">-->
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit"
+                  class="btn btn-success"
+                  [disabled]="!f.valid">
+            Save
+          </button>
+          <button type="button"
+                  class="btn btn-danger"
+                  (click)="onCancel()">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-xs-12 form-group">
+            <label for="firstname">First name</label>
+            <input type="text"
+                   id="firstname"
+                   class="form-control"
+                   name="firstname"
+                   [(ngModel)]="person.firstname"
+                   required />
+          </div>
+   
+
+          <div class="col-xs-12 form-group">
+            <label for="lastname">Last name</label>
+            <input type="text"
+                   id="lastname"
+                   class="form-control"
+                   name="lastname"
+                   [(ngModel)]="person.lastname"
+                   required />
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="description">Description</label>
+            <textarea type="text"
+                      id="description"
+                      name="description"
+                      class="form-control"
+                      [(ngModel)]="person.description"
+                      rows="3"></textarea>
+          </div>
+         <div class="col-xs-12 form-group">
+          <label for="imagePath">Image URL</label>
+          <input type="text"
+                 id="imagePath"
+                 name="imagePath"
+                 [(ngModel)]="person.imagePath"
+                 class="form-control"
+                 #imagePath>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <img [src]="imagePath.value"
+                 class="img-responsive">
+          </div>
+        </div>
+
+        <div class="row">
+          <ul class="nav navbar-nav">
+            <li appDropdown class="dropdown" [ngStyle]="{backgroundColor: selectedLabelColor}">
+              <a curson="cursor:pointer" class="dropdown-toggle" role="button">
+                Label
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li *ngFor="let label of labels"
+                    [ngStyle]="{backgroundColor: label.color}">
+                  <a style="cursor: pointer"
+                     (click)="onLabelSelect(label)">
+                    {{label.name}}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="row" *ngFor="let currentLabel of person.labels">
+          <div class="col-xs-10" [ngStyle]="{'background-color':currentLabel.color}">{{currentLabel.name}} - {{currentLabel.color}}</div>
+          <div class="col-xs-2"><button class="btn btn-danger" (click)="onDeleteLabel(currentLabel.id)">X</button></div>
+        </div>
+
+</form>
+  </div>
+</div>
