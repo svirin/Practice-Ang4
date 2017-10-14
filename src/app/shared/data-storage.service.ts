@@ -137,6 +137,36 @@ export class DataStorageService {
       });
   }
 
+  getPersonsByText(text: string) {
+    let promise = firebase.app().database().ref('persons').orderByKey();
+    promise.on('value',
+      snap => {
+        const requestedItem = snap.val();
+        if (requestedItem) {
+          const persons: Person[] = [];
+          const keys = Object.keys(requestedItem);
+          const values = Object.values(requestedItem);
+          for (let idx = 0; idx < keys.length; idx++) {
+            let person: Person =
+              new Person(
+                keys[idx],
+                values[idx].firstname,
+                values[idx].lastname,
+                values[idx].description,
+                values[idx].imagePath,
+                values[idx].labels
+              );
+            if (person.firstname.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
+                person.lastname.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
+                person.description.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
+              persons.push(person);
+            }
+          }
+          this.personsLoaded.next(persons);
+        }
+      });
+  }
+
   getSinglePerson(id: string): any {
     let promise = firebase.app().database().ref('persons').orderByKey().equalTo(id);
     promise.on('value',

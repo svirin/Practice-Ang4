@@ -12,7 +12,9 @@ import { Person } from '../../shared/model/persons.model';
 export class PersonDetailComponent implements OnInit, OnDestroy {
 
   id: string;
-  person: Person;
+  person: Person = new Person('', '', '', '', '', []);
+
+  changeSearchSubscription: Subscription;
   queryParamsSubscription: Subscription;
   personServiceSubscription: Subscription;
 
@@ -24,6 +26,11 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
+    this.changeSearchSubscription = this.personService.personsChangeSearch.subscribe(
+      () => {
+        this.router.navigate(['../'], { relativeTo: this.route });
+      });
 
     this.queryParamsSubscription = this.route.params.subscribe
     (
@@ -41,13 +48,13 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
             });
 
         this.personService.loadSinglePerson(this.id);
-      }
-    );
+      });
   }
 
   ngOnDestroy() {
     this.queryParamsSubscription.unsubscribe();
     this.personServiceSubscription.unsubscribe();
+    this.changeSearchSubscription.unsubscribe();
   }
 
   onCancel() {
@@ -61,5 +68,11 @@ export class PersonDetailComponent implements OnInit, OnDestroy {
 
   onEditPerson() {
     this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  getPersonLabels() {
+    if (this.person.labels) {
+      return this.person.labels;
+    }
   }
 }

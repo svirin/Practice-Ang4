@@ -21,6 +21,7 @@ export class PersonEditComponent implements OnInit, OnDestroy {
 
   labels: Label[];
 
+  changeSearchSubscription: Subscription;
   queryParamsSubscription: Subscription;
   personServiceSubscription: Subscription;
   labelsServiceSubscription: Subscription;
@@ -39,6 +40,7 @@ export class PersonEditComponent implements OnInit, OnDestroy {
     this.queryParamsSubscription.unsubscribe();
     this.personServiceSubscription.unsubscribe();
     this.labelsServiceSubscription.unsubscribe();
+    this.changeSearchSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -48,6 +50,11 @@ export class PersonEditComponent implements OnInit, OnDestroy {
         this.labels = labels;
       });
     this.labelsService.loadLabels();
+
+    this.changeSearchSubscription = this.personService.personsChangeSearch.subscribe(
+      () => {
+        this.router.navigate(['../../'], { relativeTo: this.route });
+      });
 
     this.queryParamsSubscription = this.route.params.subscribe(
       (params: Params) => {
@@ -78,12 +85,15 @@ export class PersonEditComponent implements OnInit, OnDestroy {
               }
             });
 
-        this.personService.loadSinglePerson(this.id);
+        if (this.id) {
+          this.personService.loadSinglePerson(this.id);
+        }
       });
   }
 
   onSubmit(form: NgForm) {
     this.personService.saveSinglePerson(this.person);
+    this.onCancel();
   }
 
   onCancel() {

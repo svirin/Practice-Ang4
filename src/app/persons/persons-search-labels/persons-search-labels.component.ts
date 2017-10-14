@@ -56,5 +56,6 @@ export class PersonsSearchLabelsComponent implements OnInit {
 
   onChange() {
     this.personsService.loadPersonsByLabel(this.selectedLabelId);
+    this.personsService.personsChangeSearch.next();
   }
 }

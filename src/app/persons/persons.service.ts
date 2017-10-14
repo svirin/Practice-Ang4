@@ -30,37 +30,17 @@ export class PersonsService {
 
     dataStorageService.personsLoaded.subscribe
       ((persons: Person[]) => {
-        this.personsChanged.next(persons);
+        this.persons = persons;
+        this.personsChanged.next(this.persons);
       });
   }
 
   personsUpdated = new Subject<any>();
   personChanged = new Subject<Person>();
   personsChanged = new Subject<Person[]>();
+  personsChangeSearch = new Subject<any>();
 
-  persons: Person[] =
-  [
-    new Person('1', 'Arik', 'Sharon', 'Test', 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Ariel_Sharon%2C_by_Jim_Wallace_%28Smithsonian_Institution%29.jpg',
-      [
-        new Label('1', 'Label', 'red', 'test', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/US_Army_logo.svg/2000px-US_Army_logo.svg.png'),
-        new Label('2', 'Label', 'green', 'test', 'http://incrent.com/isramun-org/wp-content/uploads/College-of-Management.png')
-      ]),
-    new Person('2', 'Itzhak', 'Rabin', 'Test', 'https://cdn.thinglink.me/api/image/852985415068549120/1240/10/scaletowidth',
-      [
-        new Label('1', 'Label', 'red', 'test', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/US_Army_logo.svg/2000px-US_Army_logo.svg.png'),
-        new Label('2', 'Label', 'green', 'test', 'http://incrent.com/isramun-org/wp-content/uploads/College-of-Management.png')
-      ]),
-    new Person('3', 'Golda', 'Meir', 'Test', 'http://www.jewishmag.com/49mag/goldameir/title2.jpg',
-      [
-        new Label('1', 'Label', 'red', 'test', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/US_Army_logo.svg/2000px-US_Army_logo.svg.png'),
-        new Label('2', 'Label', 'green', 'test', 'http://incrent.com/isramun-org/wp-content/uploads/College-of-Management.png')
-      ]),
-    new Person('4', 'Levi', 'Eshkol', 'Test', 'http://www.levi-eshkol.org.il/files/a87bb06179ee16616053f7e24bb2c0e3/Harris%2C%20David3.jpg',
-      [
-        new Label('1', 'Label', 'red', 'test', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/US_Army_logo.svg/2000px-US_Army_logo.svg.png'),
-        new Label('2', 'Label', 'green', 'test', 'http://incrent.com/isramun-org/wp-content/uploads/College-of-Management.png')
-      ])
-  ];
+  persons: Person[] = [];
 
   loadSinglePerson(id: string) {
     this.dataStorageService.getSinglePerson(id);
@@ -72,16 +52,17 @@ export class PersonsService {
     this.personsUpdated.next();
   }
 
-  getPersons() {
-    return this.persons.slice();
-  }
-
   loadPersons() {
-    this.dataStorageService.getAllPersons();
+    //this.dataStorageService.getAllPersons();
+    this.personsChanged.next(this.persons);
   }
 
   loadPersonsByLabel(labelId: string) {
     this.dataStorageService.getPersonsByLabel(labelId);
+  }
+
+  loadPersonsByText(text: string) {
+    this.dataStorageService.getPersonsByText(text);
   }
 
   saveSinglePerson(person: Person) {

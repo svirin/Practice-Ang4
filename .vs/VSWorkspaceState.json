@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\core",
+    "\\src\\app\\persons",
+    "\\src\\app\\persons\\person-mode-selector",
+    "\\src\\app\\persons\\persons-cards",
+    "\\src\\app\\persons\\persons-list",
+    "\\src\\app\\persons\\persons-search-labels"
+  ],
+  "SelectedNode": "\\src\\app\\persons\\persons-cards\\persons-cards.component.ts",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { PersonsService } from '../persons.service';
 import { Person } from '../../shared/model/persons.model';
+
 
 @Component({
   selector: 'app-persons-cards',
@@ -15,7 +17,9 @@ export class PersonsCardsComponent implements OnInit, OnDestroy {
 
     constructor
     (
-    private personsService: PersonsService
+      private personsService: PersonsService,
+      private router: Router,
+      private route: ActivatedRoute
     ) { }
 
   ngOnInit() {
@@ -29,5 +33,9 @@ export class PersonsCardsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.personsServiceSubscription.unsubscribe();
+  }
+
+  onNewPerson() {
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 }

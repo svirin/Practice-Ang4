@@ -20,7 +20,7 @@
 
 <hr />
 
-<div class="row" *ngFor="let currentLabel of person.labels">
+<div class="row" *ngFor="let currentLabel of getPersonLabels()">
   <div class="col-md-offset-1">
     <label [ngStyle]="{'background-color':currentLabel.color}">{{currentLabel.name}} - {{currentLabel.color}}</label>
   </div>

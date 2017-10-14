@@ -23,6 +23,8 @@ export class PersonsListComponent implements OnInit, OnDestroy {
       (persons) => {
         this.persons = persons;
       });
+
+    // get static
     this.personsService.loadPersons();
   }
 

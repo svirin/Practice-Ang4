@@ -52,6 +52,5 @@ export class PersonModeSelectorComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['./', this.personsService.listMode], { relativeTo: this.route });
     }
-    //this.router.navigate(['./', this.personsService.listMode, selectedPersonId, editMode], { relativeTo: this.route });
   }
 }

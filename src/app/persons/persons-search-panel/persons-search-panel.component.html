@@ -1,5 +1,22 @@
-<app-person-mode-selector></app-person-mode-selector>
-<p>
-  SEARCH BY NAME
-</p>
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <app-person-mode-selector></app-person-mode-selector>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <input type="text" class="form-control" #search />
+    </div>
+    <div class="col-md-8" [ngStyle]="{backgroundColor: selectedLabelColor}">
+      <button type="button"
+              class="btn btn-success"
+              (click)="onTextSearchChange()">
+        Search
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <router-outlet></router-outlet>
+  </div>
+</div>
